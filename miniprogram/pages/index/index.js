@@ -75,7 +75,7 @@ Page({
                   result
                 }) => {
                   self.setData({
-                    originUrl: result,
+                    originUrl: fileID,
                     resUrl: {
                       cut50: result[0],
                       cut80: result[1],
