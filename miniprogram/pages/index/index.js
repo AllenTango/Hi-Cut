@@ -51,28 +51,42 @@ Page({
                 PornInfo,
                 TerroristInfo
               } = result
-              if (PoliticsInfo.Code != 0 || PornInfo.Code != 0 || TerroristInfo.Code != 0) {
-                wx.showToast({
-                  title: '上传图片不规范，请重试',
-                  icon: 'none'
-                })
-              } else {
+              if (PoliticsInfo.Code == 0 && PornInfo.Code == 0 && TerroristInfo.Code == 0) {
                 wx.cloud.callFunction({
                   name: "hicut",
                   data: {
-                    fileID
+                    fileID,
+                    size: [{
+                        width: 100,
+                        height: 100
+                      },
+                      {
+                        width: 160,
+                        height: 90
+                      },
+                      {
+                        width: 300,
+                        height: 200
+                      }
+                    ]
                   }
-                }).then(({
+                })
+                .then(({
                   result
                 }) => {
                   self.setData({
                     originUrl: result,
                     resUrl: {
-                      cut50: result + "?imageMogr2/scrop/100x100",
-                      cut80: result + "?imageMogr2/scrop/300x200",
-                      cut150: result + "?imageMogr2/scrop/200x100"
+                      cut50: result[0],
+                      cut80: result[1],
+                      cut150: result[2]
                     }
                   })
+                })
+              } else {
+                wx.showToast({
+                  title: '上传图片不规范，请重试',
+                  icon: 'none'
                 })
               }
             })
