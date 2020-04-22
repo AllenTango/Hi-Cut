@@ -1,0 +1,22 @@
+<view class="container flex flex-col">
+  <view class="tips">
+    <text class="tips-text">
+      上传带有人像的照片，智能裁剪可以防止人像被切
+割，从而获得更好的缩略图体验
+    </text>
+  </view>
+  <view class="images flex flex-col">
+    <view class="origin-image">
+    <image class="origin-img" src="{{originUrl}}"></image>
+    </view>
+    <view class="show-images flex">
+      <image class="show-img1" src="{{resUrl.cut50}}"></image>
+      <image class="show-img2" src="{{resUrl.cut150}}"></image>
+      <image class="show-img3" src="{{resUrl.cut80}}"></image>
+    </view>
+  </view>
+  <view class="btn-group flex" bindtap="doUpload">
+    <image class="btn-img" src="../../images/upload.png"></image>
+    <text class="btn-text">上传</text>
+  </view>
+</view>
