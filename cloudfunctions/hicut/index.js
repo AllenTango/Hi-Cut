@@ -1,5 +1,5 @@
 // 云函数入口文件
-const cloud = require('wx-server-sdk')
+// const cloud = require('wx-server-sdk')
 const extCi = require("@cloudbase/extension-ci")
 const tcb = require("tcb-admin-node")
 
@@ -20,17 +20,18 @@ exports.main = async({
     } = await tcb.getTempFileURL({
       fileList: [fileID]
     })
+    // console.log(fileList[0])
     return fileList[0].tempFileURL
   }
 
   const originImageUrl = await getImageUrl(fileID)
-  const cutImageUrl = []
-
-  for (let i = 0; i < size.length; i++) {
-    let rule = `imageMogr2/thumbnail/!${size[i].width}x${size[i].height}r|imageMogr2/scrop/!${size[i].width}x${size[i].height}/`
-    cutImageUrl[i] = originImageUrl + '?' + rule
-  }
-
+  const cutImageUrl = size.map(({
+    width,
+    height
+  }) => {
+    let rule = `imageMogr2/thumbnail/!${width}x${height}r|imageMogr2/scrop/!${width}x${height}/`
+    return originImageUrl + '?' + rule
+  })
 
   return cutImageUrl
 }

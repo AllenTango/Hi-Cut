@@ -9,9 +9,13 @@
 # 原地址：=> 微信开发者代码管理：
 [https://git.weixin.qq.com/wx_wx67b01ccebc9ca698/hi-cut](https://git.weixin.qq.com/wx_wx67b01ccebc9ca698/hi-cut)
 
-⚠️ 存在BUG: 只能处理一次
+Mark 低 [It's important！👇]
+
+> 正常步骤：建立云函数、安装依赖、本地测试、改错、上传云端
+
+~~ ⚠️ 存在BUG: 只能处理一次[前端解决 上传时随机命名] ~~
 
 ## 参考文档
 
+- [项目要求](https://mubu.com/doc/5dKLwOlgdIq)
 - [云开发文档](https://developers.weixin.qq.com/miniprogram/dev/wxcloud/basis/getting-started.html)
-

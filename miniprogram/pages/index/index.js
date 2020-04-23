@@ -29,7 +29,7 @@ Page({
         const filePath = res.tempFilePaths[0]
 
         // 上传图片
-        const cloudPath = 'my-image' + filePath.match(/\.[^.]+?$/)[0]
+        const cloudPath = `image${Math.floor(Math.random()*10000000)}` + filePath.match(/\.[^.]+?$/)[0]
         wx.cloud.uploadFile({
           cloudPath,
           filePath,
@@ -75,7 +75,7 @@ Page({
                   result
                 }) => {
                   self.setData({
-                    originUrl: fileID,
+                    originUrl: filePath,
                     resUrl: {
                       cut50: result[0],
                       cut80: result[1],

@@ -1,5 +1,5 @@
 // 云函数入口文件、图像安全审核依赖
-const cloud = require('wx-server-sdk')
+// const cloud = require('wx-server-sdk')
 const extCi = require("@cloudbase/extension-ci")
 const tcb = require("tcb-admin-node")
 
@@ -10,23 +10,30 @@ tcb.init({
 tcb.registerExtension(extCi)
 
 // 云函数入口函数
-exports.main = async({
+exports.main = async ({
   fileID
 }) => {
   try {
+    // console.log(fileID)
     let tmp = fileID.split("/")
     let cloudPath = tmp[tmp.length - 1]
-
+    // console.log(cloudPath)
     const res = await tcb.invokeExtension('CloudInfinite', {
       action: "DetectType",
       cloudPath: cloudPath,
-      operations: { type: ["porn", "terrorist", "politics"]}
+      operations: {
+        type: ["porn", "terrorist", "politics"]
+      }
     })
-    // 回来继续写，发现 operations 少写了s 成了 operation，一直是空的结果 😭，还测了一整天2020.04.21-20:30
-    // 改了也还是空啊！
-    // console.log(JSON.stringify(res.data, null, 4))
+    console.log(JSON.stringify(res.data, null, 4))
     return res.data.RecognitionResult
   } catch (err) {
-    console.log("错误：",err)
+    console.log("错误：", err)
+    // 出错时也要返回带错误码的JSON
+    return JSON.stringify(err || {})
+    // return {
+    //   errCode: -10000,
+    //   errMsg: JSON.stringify(err || {})
+    // }
   }
 }
